@@ -1,0 +1,72 @@
+@font-face {
+  font-family: "Dreaming Outloud";
+  src: url("/fonts/dreaming-outloud-regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  background-image: url("/images/background-img.png");
+  background-size: cover;
+  font-family: "Dreaming Outloud", sans-serif;
+  color: white;
+}
+
+#game-intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 30%;
+  transform: translateY(30%);
+}
+
+#game-title {
+  font-size: 5.5rem;
+  font-weight: 400;
+  letter-spacing: 0.3rem;
+}
+
+.stitch {
+  display: flex;
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translateY(70%);
+}
+
+.stitch img,
+.reuben img {
+  height: 300px;
+  max-width: 100%;
+}
+
+.reuben {
+  display: flex;
+  position: absolute;
+  right: 10%;
+  transform: translateY(190%);
+}
+
+.custom-btn {
+  width: 350px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background-color: rgba(77, 120, 97, 255);
+  font-size: 3rem;
+  color: rgba(229, 182, 34, 255);
+}
