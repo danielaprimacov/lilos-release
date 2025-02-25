@@ -52,7 +52,7 @@ class Player {
     arrowHead.setAttribute("fill", "black");
 
     // Rotate the arrow
-    this.arrowElement.setAttribute("transform", "translate(205, 370) rotate(-90)");
+    this.arrowElement.setAttribute("transform", "translate(160, 270) rotate(-90)");
 
     // Append to the arrow element
     this.arrowElement.appendChild(arrowLine);

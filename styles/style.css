@@ -8,50 +8,57 @@
 body {
   padding: 0;
   margin: 0;
-  text-align: center;
-  font-family: "Dreaming Outloud", sans-serif;
-  background-image: url("/images/background-img.png");
-  background-size: cover;
-  color: white;
-}
-
-#game-intro {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  font-family: "Dreaming Outloud", sans-serif;
+  color: white;
+  background-color: rgba(27, 102, 64, 0.308);
+}
+
+#game-intro {
+  width: 1000px;
+  height: 600px;
+  background-image: url("/images/background-img.png");
+  background-size: cover;
+  border-radius: 2%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
 #header-actions {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  position: absolute;
-  top: 30%;
-  transform: translateY(30%);
+  top: 25%;
+  transform: translateX(110%);
 }
 
 #game-title {
-  font-size: 5.5rem;
+  font-size: 3rem;
   font-weight: 400;
   letter-spacing: 0.3rem;
 }
 
-.stitch {
-  display: flex;
+.stitch,
+.reuben {
   position: absolute;
-  left: 10%;
-  top: 50%;
-  transform: translateY(70%);
+  display: flex;
+}
+
+.stitch {
+  left: 12%;
+  top: 35%;
 }
 
 .stitch img,
 .reuben img {
-  height: 300px;
-  max-width: 100%;
-
-  animation: jump 0.7s ease-in-out infinite;
+  height: 150px;
+  animation: jump 0.8s ease-in-out infinite;
 }
 
 @keyframes jump {
@@ -69,10 +76,8 @@ body {
 }
 
 .reuben {
-  display: flex;
-  position: absolute;
   right: 10%;
-  transform: translateY(190%);
+  transform: translateY(230%);
 }
 
 .custom-btn {
@@ -86,11 +91,10 @@ body {
 }
 
 #start-btn {
-  width: 350px;
-  height: 80px;
-  font-size: 3rem;
-  border-radius: 30px;
-  transition: all 0.3s ease;
+  width: 200px;
+  height: 40px;
+  font-size: 1.7rem;
+  border-radius: 8px;
 }
 
 #start-btn:hover {
@@ -104,19 +108,16 @@ body {
 }
 
 #game-screen {
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
   background-image: url("/images/background-game.jpg");
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 2%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 #battle-arena {
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   background-color: #f68d77;
   border-radius: 50%;
+  transform: translate(53%, 10%);
 }
