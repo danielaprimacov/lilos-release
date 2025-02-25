@@ -5,8 +5,8 @@ class Game {
     this.gameEndScreen = document.getElementById("game-end");
     this.battleArena = document.getElementById("battle-arena");
     this.player = new Player(
-      this.gameScreen,
-      705,
+      this.battleArena,
+      700,
       525,
       130,
       150,
@@ -28,6 +28,7 @@ class Game {
 
     this.startScreen.style.display = "none";
     this.gameScreen.style.display = "flex";
+    this.gameScreen.appendChild(this.battleArena);
     this.battleArena.style.display = "flex";
 
     this.gameIntervalId = setInterval(() => {

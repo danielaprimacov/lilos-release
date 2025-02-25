@@ -1,6 +1,6 @@
 # Lilo's release
 
-[Click here to see deployed game] (http://github.com)
+🔗 [Click here to see the deployed game](http://github.com)
 
 ## 📜 Description
 
