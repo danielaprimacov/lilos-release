@@ -25,9 +25,20 @@ class Game {
   start() {
     this.gameScreen.style.height = `${this.height}px`;
     this.gameScreen.style.width = `${this.width}px`;
-    
-    this.startScreen.style.display = "none";
-    this.gameScreen.style.display = "flex";
+
+    this.startScreen.classList.add("hidden");
+
+    setTimeout(() => {
+      this.startScreen.style.display = "none";
+
+      this.gameScreen.style.display = "flex";
+      this.gameScreen.classList.add("active");
+
+      this.gameScreen.appendChild(this.battleArena);
+      this.battleArena.style.display = "flex";
+      this.battleArena.classList.add("active");
+    }, 1000);
+
     this.gameScreen.appendChild(this.battleArena);
     this.battleArena.style.display = "flex";
 

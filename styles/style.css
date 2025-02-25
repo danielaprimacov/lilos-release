@@ -17,6 +17,7 @@ body {
   font-family: "Dreaming Outloud", sans-serif;
   color: white;
   background-color: rgba(27, 102, 64, 0.308);
+  overflow: hidden;
 }
 
 #game-intro {
@@ -26,7 +27,14 @@ body {
   background-size: cover;
   border-radius: 2%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  visibility: visible;
   position: relative;
+}
+
+#game-intro.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
 
 #header-actions {
@@ -102,8 +110,16 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+#game-intro,
 #game-screen,
 #battle-arena {
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+#game-screen,
+#battle-arena {
+  opacity: 0;
+  visibility: hidden;
   display: none;
 }
 
@@ -120,4 +136,10 @@ body {
   background-color: #f68d77;
   border-radius: 50%;
   transform: translate(53%, 10%);
+}
+
+#game-screen.active,
+#battle-arena.active {
+  opacity: 1;
+  visibility: visible;
 }
