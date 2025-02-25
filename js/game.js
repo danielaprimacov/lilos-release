@@ -6,10 +6,10 @@ class Game {
     this.battleArena = document.getElementById("battle-arena");
     this.player = new Player(
       this.battleArena,
-      180,
-      350,
-      150,
-      150,
+      200,
+      400,
+      100,
+      100,
       "/images/stitch.png"
     );
     this.enemy = null;
