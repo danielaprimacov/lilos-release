@@ -9,9 +9,9 @@ body {
   padding: 0;
   margin: 0;
   text-align: center;
+  font-family: "Dreaming Outloud", sans-serif;
   background-image: url("/images/background-img.png");
   background-size: cover;
-  font-family: "Dreaming Outloud", sans-serif;
   color: white;
 }
 
@@ -50,6 +50,22 @@ body {
 .reuben img {
   height: 300px;
   max-width: 100%;
+
+  animation: jump 0.7s ease-in-out infinite;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .reuben {
@@ -60,13 +76,47 @@ body {
 }
 
 .custom-btn {
-  width: 350px;
-  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px;
   background-color: rgba(77, 120, 97, 255);
-  font-size: 3rem;
   color: rgba(229, 182, 34, 255);
+  border: none;
+  cursor: pointer;
+}
+
+#start-btn {
+  width: 350px;
+  height: 80px;
+  font-size: 3rem;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+#start-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#game-screen,
+#battle-arena {
+  display: none;
+}
+
+#game-screen {
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/images/background-game.jpg");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#battle-arena {
+  width: 600px;
+  height: 600px;
+  background-color: #f68d77;
+  border-radius: 50%;
 }
