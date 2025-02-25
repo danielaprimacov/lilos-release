@@ -4,6 +4,7 @@ class Game {
     this.gameScreen = document.getElementById("game-screen");
     this.gameEndScreen = document.getElementById("game-end");
     this.battleArena = document.getElementById("battle-arena");
+    this.gameContainer = document.getElementById("game-container");
     this.player = new Player(
       this.battleArena,
       200,
@@ -37,6 +38,10 @@ class Game {
       this.gameScreen.appendChild(this.battleArena);
       this.battleArena.style.display = "flex";
       this.battleArena.classList.add("active");
+
+      this.gameScreen.appendChild(this.gameContainer);
+      this.gameContainer.style.display = "flex";
+      this.gameContainer.classList.add("active");
     }, 1000);
 
     this.gameScreen.appendChild(this.battleArena);

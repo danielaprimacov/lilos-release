@@ -117,7 +117,8 @@ body {
 }
 
 #game-screen,
-#battle-arena {
+#battle-arena,
+#game-container {
   opacity: 0;
   visibility: hidden;
   display: none;
@@ -139,7 +140,22 @@ body {
 }
 
 #game-screen.active,
-#battle-arena.active {
+#battle-arena.active,
+#game-container.active {
   opacity: 1;
   visibility: visible;
+}
+
+#game-container {
+  width: 200px;
+  height: 100px;
+  flex-direction: column;
+  justify-content: flex-start;
+  transform: translate(-260%, 220%);
+  font-size: 2rem;
+}
+
+#game-container p {
+  margin: 0;
+  padding: 0;
 }
