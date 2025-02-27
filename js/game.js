@@ -11,7 +11,7 @@ class Game {
       400,
       100,
       100,
-      "../images/stitch.png"
+      "./images/stitch.png"
     );
     this.enemy = null;
     this.height = 600;
