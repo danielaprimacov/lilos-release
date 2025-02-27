@@ -12,4 +12,23 @@ window.onload = function () {
     newGame = new Game();
     newGame.start();
   }
+
+  window.addEventListener("keydown", (event) => {
+    const possibleKeys = ["ArrowLeft", "ArrowRight", "Space"];
+    // Check if the pressed key is in the possibleKeys array
+    if (possibleKeys.includes(event.key)) {
+      event.preventDefault();
+      switch (event.key) {
+        case "ArrowLeft":
+          newGame.player.moveArrow("left");
+          break;
+
+        case "ArrowRight":
+          newGame.player.moveArrow("right");
+
+        case "Space":
+          break;
+      }
+    }
+  });
 };
