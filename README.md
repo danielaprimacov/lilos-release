@@ -1,6 +1,6 @@
 # Lilo's release
 
-🔗 [Click here to see the deployed game](http://github.com)
+🔗 [Click here to see the deployed game](https://danielaprimacov.github.io/lilos-release/)
 
 ## 📜 Description
 
