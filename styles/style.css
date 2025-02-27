@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Dreaming Outloud";
-  src: url("./fonts/dreaming-outloud-regular.otf") format("opentype");
+  src: url("../fonts/dreaming-outloud-regular.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
@@ -23,7 +23,7 @@ body {
 #game-intro {
   width: 1000px;
   height: 600px;
-  background-image: url("./images/background-img.png");
+  background-image: url("../images/background-img.png");
   background-size: cover;
   border-radius: 2%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
