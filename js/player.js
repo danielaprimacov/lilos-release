@@ -52,6 +52,11 @@ class Player {
     if (this.isJumping) return;
     this.isJumping = true;
 
+    let jumpImg = "../images/jump-stitch.png";
+    let originalImg = this.element.src;
+    this.element.src = jumpImg;
+
+
     const arena = this.gameScreen.getBoundingClientRect();
 
     const diameter = arena.width; // Fixed diameter of the circle
@@ -85,7 +90,7 @@ class Player {
     const newRotation = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
 
     let startTime;
-    const duration = 500; // Duration of the jump
+    const duration = 600; // Duration of the jump
 
     const animateJump = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -103,7 +108,10 @@ class Player {
 
       if (progress < 1) {
         requestAnimationFrame(animateJump);
+        this.arrowElement.style.display = "none";
       } else {
+        this.arrowElement.style.display = "block";
+        this.element.src = originalImg;
         this.isJumping = false;
       }
     };
