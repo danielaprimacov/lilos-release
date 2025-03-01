@@ -50,7 +50,7 @@ class Player {
     if (this.isJumping) return;
     this.isJumping = true;
 
-    let jumpImg = "../images/jump-stitch.png";
+    let jumpImg = "./images/jump-stitch.png";
     let originalImg = this.element.src;
     this.element.src = jumpImg;
 
