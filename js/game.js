@@ -19,7 +19,7 @@ class Game {
     this.score = 0;
     this.lives = 3;
     this.gameIsOver = false;
-    this.gameIntervalId;
+    this.gameIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
   }
 
@@ -59,5 +59,11 @@ class Game {
     }
   }
 
-  update() {}
+  update() {
+    
+  }
+
+  endGame() {
+    this.gameIsOver = true;
+  }
 }
