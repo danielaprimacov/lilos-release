@@ -47,15 +47,12 @@ class Player {
   }
 
   move() {
-    console.log("move function");
-
     if (this.isJumping) return;
     this.isJumping = true;
 
     let jumpImg = "../images/jump-stitch.png";
     let originalImg = this.element.src;
     this.element.src = jumpImg;
-
 
     const arena = this.gameScreen.getBoundingClientRect();
 
@@ -130,7 +127,6 @@ class Player {
       this.arrowRotation += rotationStep;
     }
     this.updateArrowPosition();
-    console.log(`arrow angle ${this.arrowRotation}`);
   }
 
   atack() {}
