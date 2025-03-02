@@ -33,7 +33,6 @@ window.onload = function () {
             newGame.player.move();
           }
           break;
-          break;
       }
     }
   });

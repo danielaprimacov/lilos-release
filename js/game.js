@@ -13,7 +13,12 @@ class Game {
       100,
       "./images/stitch.png"
     );
-    this.enemy = null;
+    this.enemy = new Enemy(
+      this.battleArena,
+      120,
+      120,
+      "./images/reuben-enemy.png"
+    );
     this.height = 600;
     this.width = 1000;
     this.score = 0;
@@ -59,9 +64,7 @@ class Game {
     }
   }
 
-  update() {
-    
-  }
+  update() {}
 
   endGame() {
     this.gameIsOver = true;

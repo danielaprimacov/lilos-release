@@ -39,8 +39,45 @@ class Player {
   }
 
   updateArrowPosition() {
-    this.arrowElement.style.top = `${this.top - 100}px`;
-    this.arrowElement.style.left = `${this.left}px`;
+    const arrowDistance = 50; // Distance above Stitch
+
+    // Convert character rotation to radians
+    const angleInRadians = this.characterRotation * (Math.PI / 180);
+
+    // Calculate new arrow position relative to Stitch
+    const arrowX = Math.abs(
+      this.left - arrowDistance * Math.sin(angleInRadians)
+    );
+    const arrowY =
+      this.top - this.height / 2 - arrowDistance * Math.cos(angleInRadians);
+
+    // When Stitch is at the top, enforce a specific top value
+    if (this.top > 0 && this.top < 50) {
+      this.arrowElement.style.top = `${this.top - 180}px`;
+      this.arrowElement.style.left = `${arrowX}px`;
+    } else if (this.top > 50 && this.top < 100) {
+      this.arrowElement.style.top = `${this.top - 160}px`;
+      this.arrowElement.style.left = `${arrowX}px`;
+    } else if (this.top > 100 && this.top < 150) {
+      this.arrowElement.style.top = `${this.top - 150}px`;
+      this.arrowElement.style.left = `${this.left + 20}px`;
+    } else if (this.top > 150 && this.top < 200) {
+      this.arrowElement.style.top = `${this.top - 160}px`;
+      this.arrowElement.style.left = `${this.left - 40}px`;
+    } else if (this.top > 200 && this.top < 250) {
+      this.arrowElement.style.top = `${this.top - 160}px`;
+      this.arrowElement.style.left = `${this.left}px`;
+    } else if (this.top > 250 && this.top < 300) {
+      this.arrowElement.style.top = `${this.top - 110}px`;
+      this.arrowElement.style.left = `${this.left}px`;
+    } else if (this.top > 300 && this.top < 400) {
+      this.arrowElement.style.top = `${this.top - 130}px`;
+      this.arrowElement.style.left = `${this.left}px`;
+    } else {
+      this.arrowElement.style.top = `${arrowY - 20}px`;
+      this.arrowElement.style.left = `${arrowX}px`;
+    }
+
     this.arrowElement.style.transform = `rotate(${
       this.characterRotation + this.arrowRotation
     }deg)`;
@@ -86,8 +123,8 @@ class Player {
     const deltaY = arena.height / 2 - newTop;
     const newRotation = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
 
-    let startTime;
-    const duration = 600; // Duration of the jump
+    let startTime = null;
+    const duration = 700; // Duration of the jump
 
     const animateJump = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -126,6 +163,7 @@ class Player {
     } else if (key === "right" && this.arrowRotation < maxRotation) {
       this.arrowRotation += rotationStep;
     }
+    console.log(`arrow rotation ${this.arrowRotation}`);
     this.updateArrowPosition();
   }
 
