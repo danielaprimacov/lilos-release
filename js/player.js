@@ -166,7 +166,7 @@ class Player {
       Math.atan2(centerY - newTop, centerX - newLeft) * (180 / Math.PI) + 90;
 
     let startTime = null;
-    const duration = 600; // Duration of the jump
+    const duration = 700; // Duration of the jump
 
     const animateJump = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -209,5 +209,20 @@ class Player {
     this.updateArrowPosition();
   }
 
-  atack() {}
+  attack(enemy) {}
+
+  // New method to check if the player is touching the enemy (based on the Y-axis)
+  isPlayerTouchingEnemy(enemy) {
+    // Assuming the player jumps vertically, check if the player’s vertical position
+    // overlaps with the enemy's position
+    const playerRect = this.element.getBoundingClientRect();
+    const enemyRect = enemy.enemyElement.getBoundingClientRect();
+
+    return (
+      playerRect.top < enemyRect.bottom && // Player is above the enemy
+      playerRect.bottom > enemyRect.top && // Player is below the enemy
+      playerRect.left < enemyRect.right && // Player's left side is to the left of the enemy
+      playerRect.right > enemyRect.left // Player's right side is to the right of the enemy
+    );
+  }
 }

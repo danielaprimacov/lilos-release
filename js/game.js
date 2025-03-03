@@ -13,16 +13,28 @@ class Game {
       100,
       "./images/stitch.png"
     );
+
     this.enemy = new Enemy(
       this.battleArena,
-      120,
-      120,
+      100,
+      100,
       "./images/reuben-enemy.png"
     );
+
+    // Game Screen width and height
     this.height = 600;
     this.width = 1000;
+
+    // Game Stats
     this.score = 0;
+    this.scoreHTML = document.getElementById("score");
+
     this.lives = 3;
+    this.livesHTML = document.getElementById("lives");
+
+    this.hasScored = false;
+
+    // Game Control Settings
     this.gameIsOver = false;
     this.gameIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
@@ -66,9 +78,42 @@ class Game {
 
   update() {
     this.enemy.move();
+
+    if (!this.player.isJumping && this.enemy.didCollide(this.player)) {
+      if (this.lives > 0) {
+        this.lives--;
+        // Change lives on the DOM
+        this.livesHTML.innerText = this.lives;
+      }
+    } else if (
+      this.player.isJumping &&
+      this.player.isPlayerTouchingEnemy(this.enemy) &&
+      !this.hasScored
+    ) {
+      this.score++;
+      // Change score on the DOM
+      this.scoreHTML.innerText = this.score;
+
+      this.hasScored = true;
+    }
+
+    // If the player is no longer touching the enemy, reset hasScored
+    if (
+      !this.player.isJumping ||
+      !this.player.isPlayerTouchingEnemy(this.enemy)
+    ) {
+      this.hasScored = false;
+    }
+
+    if (this.lives === 0) {
+      this.endGame();
+    }
+
+    this.enemy.resetCollision();
+    this.enemy.exitCollisionArea(this.player);
   }
 
   endGame() {
-    this.gameIsOver = true;
+    //this.gameIsOver = true;
   }
 }

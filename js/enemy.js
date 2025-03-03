@@ -4,11 +4,14 @@ class Enemy {
     this.width = width;
     this.height = height;
     this.angle = Math.random() * 360;
-    this.speed = 1;
+    this.speed = 0.8;
 
     this.enemyElement = document.createElement("img");
     this.enemyElement.src = imageURL;
     this.enemyElement.style.position = "absolute";
+
+    this.left = 400;
+    this.top = 300;
 
     this.enemyElement.style.width = `${this.width}px`;
     this.enemyElement.style.height = `${this.height}px`;
@@ -19,6 +22,12 @@ class Enemy {
     this.gameScreen.appendChild(this.enemyElement);
 
     this.updatePosition();
+
+    this.hasCollied = false;
+
+    // Cooldown timer for collision detection (in milliseconds)
+    this.collisionCooldown = 2000; // 1 second cooldown
+    this.lastCollisionTime = 0; // Last collision timestamp
   }
 
   updatePosition() {
@@ -36,6 +45,9 @@ class Enemy {
     // Position the enemy element
     this.enemyElement.style.left = `${positionX - this.width / 2}px`; // Center the image
     this.enemyElement.style.top = `${positionY - this.height / 2}px`; // Center the image
+
+    this.left = positionX - this.width / 2; // Updating left position for collision detection
+    this.top = positionY - this.height / 2; // Updating top position for collision detection
 
     // Calculate the angle to make the enemy face the center of the circle
     const angleToCenter =
@@ -56,5 +68,52 @@ class Enemy {
 
     // Update position
     this.updatePosition();
+  }
+
+  
+  
+  didCollide(player) {
+    const playerRect = player.element.getBoundingClientRect();
+    const enemyRect = this.enemyElement.getBoundingClientRect();
+
+    const currentTime = Date.now();
+
+    // Check if the enemy intersects with the player
+    const isColliding =
+      playerRect.left < enemyRect.right &&
+      playerRect.right > enemyRect.left &&
+      playerRect.top < enemyRect.bottom &&
+      playerRect.bottom > enemyRect.top;
+
+    if (isColliding && !this.hasCollied) {
+      // Only allow one collision event if it's been enough time (no duplicate hits)
+      if (currentTime - this.lastCollisionTime >= this.collisionCooldown) {
+        this.hasCollied = true;
+        this.lastCollisionTime = currentTime;
+        return true; // Collision detected
+      }
+    }
+    return false; // No collision
+  }
+
+  resetCollision() {
+    // Reset the collision state when the enemy moves past the player
+    if (this.hasCollied) {
+      this.hasCollied = false;
+    }
+  }
+
+  // Track when the enemy leaves the player area, so collision is no longer valid
+  exitCollisionArea(player) {
+    const playerRect = player.element.getBoundingClientRect();
+    const enemyRect = this.enemyElement.getBoundingClientRect();
+
+    // Check if the enemy has exited the player's area (this helps avoid multiple hits)
+    if (
+      enemyRect.left > playerRect.right ||
+      enemyRect.right < playerRect.left
+    ) {
+      this.resetCollision();
+    }
   }
 }
