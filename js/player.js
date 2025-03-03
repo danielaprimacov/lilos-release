@@ -158,7 +158,7 @@ class Player {
       newTop = arena.height / 2 + (newTop - arena.height / 2) * scale;
     }
 
-    console.log(`distance ${distanceFromCenter}`);
+    //console.log(`distance ${distanceFromCenter}`);
     console.log(`Left ${newLeft} Top ${newTop}`);
 
     // Compute the new character rotation to face the center
@@ -208,8 +208,6 @@ class Player {
     //console.log(`arrow rotation ${this.arrowRotation}`);
     this.updateArrowPosition();
   }
-
-  attack(enemy) {}
 
   // New method to check if the player is touching the enemy (based on the Y-axis)
   isPlayerTouchingEnemy(enemy) {

@@ -67,6 +67,10 @@ class Game {
     this.gameIntervalId = setInterval(() => {
       this.gameLoop();
     }, this.gameLoopFrequency);
+
+    setInterval(() => {
+      this.enemy.jumpToTheOtherSide();
+    }, 3000);
   }
 
   gameLoop() {

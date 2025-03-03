@@ -5,6 +5,7 @@ class Enemy {
     this.height = height;
     this.angle = Math.random() * 360;
     this.speed = 0.8;
+    this.isJumping = false;
 
     this.enemyElement = document.createElement("img");
     this.enemyElement.src = imageURL;
@@ -56,6 +57,7 @@ class Enemy {
   }
 
   move() {
+    if (this.isJumping) return;
     // Randomly change the angle by a small amount
     this.angle += this.speed;
 
@@ -70,8 +72,35 @@ class Enemy {
     this.updatePosition();
   }
 
-  
-  
+  jumpToTheOtherSide() {
+    if (this.isJumping) return; // Prevent multiple jumps
+    this.isJumping = true;
+
+    const targetAngle = (this.angle + 180) % 360; // Exact opposite side
+    const startAngle = this.angle;
+    let progress = 0;
+    const jumpDuration = 700; //700ms for the jump animation
+    const startTime = performance.now();
+
+    const animateJump = (currentTime) => {
+      progress = (currentTime - startTime) / jumpDuration;
+
+      if (progress < 1) {
+        // Smooth interpolation from startAngle to targetAngle
+        this.angle = startAngle + (targetAngle - startAngle) * progress;
+        this.updatePosition();
+        requestAnimationFrame(animateJump);
+      } else {
+        // Ensure final position is exactly at the opposite side
+        this.angle = targetAngle;
+        this.updatePosition();
+        this.isJumping = false; // Reset jumping flag
+      }
+    };
+
+    requestAnimationFrame(animateJump);
+  }
+
   didCollide(player) {
     const playerRect = player.element.getBoundingClientRect();
     const enemyRect = this.enemyElement.getBoundingClientRect();
