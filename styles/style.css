@@ -67,6 +67,7 @@ body {
 .reuben img {
   height: 150px;
   animation: jump 0.8s ease-in-out infinite;
+  transform-origin: center;
 }
 
 @keyframes jump {

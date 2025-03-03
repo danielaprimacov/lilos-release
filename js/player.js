@@ -59,16 +59,16 @@ class Player {
       this.arrowElement.style.top = `${this.top - 160}px`;
       this.arrowElement.style.left = `${arrowX}px`;
     } else if (this.top > 100 && this.top < 150) {
-      this.arrowElement.style.top = `${this.top - 150}px`;
-      this.arrowElement.style.left = `${this.left + 20}px`;
+      this.arrowElement.style.top = `${this.top - 160}px`;
+      this.arrowElement.style.left = `${this.left}px`;
     } else if (this.top > 150 && this.top < 200) {
       this.arrowElement.style.top = `${this.top - 160}px`;
       this.arrowElement.style.left = `${this.left - 40}px`;
-    } else if (this.top > 200 && this.top < 250) {
+    } else if (this.top > 200 && this.top < 261) {
       this.arrowElement.style.top = `${this.top - 160}px`;
-      this.arrowElement.style.left = `${this.left}px`;
-    } else if (this.top > 250 && this.top < 300) {
-      this.arrowElement.style.top = `${this.top - 110}px`;
+      this.arrowElement.style.left = `${this.left + 20}px`;
+    } else if (this.top > 261 && this.top < 300) {
+      this.arrowElement.style.top = `${this.top - 160}px`;
       this.arrowElement.style.left = `${this.left}px`;
     } else if (this.top > 300 && this.top < 400) {
       this.arrowElement.style.top = `${this.top - 130}px`;
@@ -98,9 +98,12 @@ class Player {
     const angleInRadians =
       (this.characterRotation + this.arrowRotation) * (Math.PI / 180);
 
+    const centerX = arena.width / 2;
+    const centerY = arena.height / 2;
+
     // Calculate new position based on the circular path
-    let newLeft = arena.width / 2 + radius * Math.sin(angleInRadians) - 100; // X position
-    let newTop = arena.height / 2 - radius * Math.cos(angleInRadians) - 100; // Y position (subtracted to flip Y-axis)
+    let newLeft = centerX + radius * Math.sin(angleInRadians) - this.width / 2; // X position
+    let newTop = centerY - radius * Math.cos(angleInRadians) - this.height / 2; // Y position (subtracted to flip Y-axis)
 
     // Compute the distance from the center (using Pythagorean theorem)
     const distanceFromCenter = Math.sqrt(
@@ -111,20 +114,56 @@ class Player {
     // Maximum allowed distance from the center (radius of the arena)
     const maxDistance = radius;
 
+    if (distanceFromCenter < 180) {
+      newTop -= 10;
+      newLeft -= 60;
+    } else if (distanceFromCenter > 180 && distanceFromCenter < 190) {
+      newTop -= 30;
+      newLeft -= 30;
+    } else if (distanceFromCenter > 190 && distanceFromCenter < 200) {
+      newTop -= 40;
+      newLeft -= 40;
+    } else if (distanceFromCenter > 200 && distanceFromCenter < 210) {
+      newLeft -= 50;
+      newTop -= 40;
+    } else if (distanceFromCenter > 210 && distanceFromCenter < 221) {
+      newLeft -= 50;
+      newTop -= 50;
+    } else if (distanceFromCenter > 221 && distanceFromCenter < 231) {
+      newLeft += 20;
+      newTop -= 30;
+    } else if (distanceFromCenter > 231 && distanceFromCenter < maxDistance) {
+      newLeft -= 0;
+      newTop += 60;
+    } else if (distanceFromCenter > maxDistance && distanceFromCenter < 260) {
+      newLeft += 60;
+    } else if (
+      distanceFromCenter > maxDistance &&
+      distanceFromCenter < 260 &&
+      this.top < 50
+    ) {
+      newLeft -= 90;
+      newTop -= 40;
+    } else if (distanceFromCenter > 260 && distanceFromCenter < 270) {
+      newLeft += 80;
+      newTop += 30;
+    } else if (distanceFromCenter > 270 && distanceFromCenter < 280) {
+      newLeft -= 0;
+    }
+
     // If the new position exceeds the radius, we need to scale it down
     if (distanceFromCenter > maxDistance) {
       const scale = maxDistance / distanceFromCenter; // Calculate scaling factor
-      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale;
+      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale - 10;
       newTop = arena.height / 2 + (newTop - arena.height / 2) * scale;
     }
 
     // Compute the new character rotation to face the center
-    const deltaX = arena.width / 2 - newLeft;
-    const deltaY = arena.height / 2 - newTop;
-    const newRotation = Math.atan2(deltaY, deltaX) * (180 / Math.PI) + 90;
+    const newRotation =
+      Math.atan2(centerY - newTop, centerX - newLeft) * (180 / Math.PI) + 90;
 
     let startTime = null;
-    const duration = 700; // Duration of the jump
+    const duration = 600; // Duration of the jump
 
     const animateJump = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -163,7 +202,7 @@ class Player {
     } else if (key === "right" && this.arrowRotation < maxRotation) {
       this.arrowRotation += rotationStep;
     }
-    console.log(`arrow rotation ${this.arrowRotation}`);
+    //console.log(`arrow rotation ${this.arrowRotation}`);
     this.updateArrowPosition();
   }
 
