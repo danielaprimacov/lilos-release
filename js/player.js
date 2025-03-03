@@ -158,6 +158,9 @@ class Player {
       newTop = arena.height / 2 + (newTop - arena.height / 2) * scale;
     }
 
+    console.log(`distance ${distanceFromCenter}`);
+    console.log(`Left ${newLeft} Top ${newTop}`);
+
     // Compute the new character rotation to face the center
     const newRotation =
       Math.atan2(centerY - newTop, centerX - newLeft) * (180 / Math.PI) + 90;

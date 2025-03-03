@@ -64,7 +64,9 @@ class Game {
     }
   }
 
-  update() {}
+  update() {
+    this.enemy.move();
+  }
 
   endGame() {
     this.gameIsOver = true;
