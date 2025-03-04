@@ -132,6 +132,8 @@ cd game-project
 2️⃣ Open index.html in a browser.
 3️⃣ Use 🎯 arrow keys to aim and press 🚀 spacebar to jump.
 
+---
+
 ## 🎮 Game States
 
 _Lilo’s Release_ includes three main screens that guide the player through the game: the **Game Intro**, the **Main Game Screen**, and the **Game End** screen. Below is a description of each state:
