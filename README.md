@@ -126,10 +126,13 @@ The `Game` class manages **game initialization, updates, and logic** such as **s
 
 1️⃣ Clone the repository:
 
+```sh
 git clone https://github.com/your-username/game-project.git
 cd game-project
 2️⃣ Open index.html in a browser.
 3️⃣ Use 🎯 arrow keys to aim and press 🚀 spacebar to jump.
+
+```
 
 ## 🎮 Game States
 
@@ -162,12 +165,10 @@ _Lilo’s Release_ includes three main screens that guide the player through the
 - Option to return to the intro screen or quit.
 - The total score or number of lives remaining, depending on the game’s design.
 
+
 ## 📌 Links
 
 I'm tracking the development of _Lilo’s Release_ on Trello. You can check out my progress, upcoming features, and tasks here:
 
 🔗 **[Lilo’s Release Trello Board](https://trello.com/b/wsbev5ND/my-kanban-board)**
-
-```
-
 ```
