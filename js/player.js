@@ -166,7 +166,7 @@ class Player {
       Math.atan2(centerY - newTop, centerX - newLeft) * (180 / Math.PI) + 90;
 
     let startTime = null;
-    const duration = 700; // Duration of the jump
+    const duration = 200; // Duration of the jump
 
     const animateJump = (timestamp) => {
       if (!startTime) startTime = timestamp;
@@ -199,7 +199,7 @@ class Player {
     //Set the limits of the line rotation
     const minRotation = -35;
     const maxRotation = 35;
-    const rotationStep = 5;
+    const rotationStep = 10;
     if (key === "left" && this.arrowRotation > minRotation) {
       this.arrowRotation -= rotationStep;
     } else if (key === "right" && this.arrowRotation < maxRotation) {

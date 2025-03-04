@@ -29,7 +29,7 @@ class Game {
     this.score = 0;
     this.scoreHTML = document.getElementById("score");
 
-    this.lives = 3;
+    this.lives = 5;
     this.livesHTML = document.getElementById("lives");
 
     this.hasScored = false;
@@ -118,6 +118,12 @@ class Game {
   }
 
   endGame() {
-    //this.gameIsOver = true;
+    this.gameIsOver = true;
+    if (this.gameIsOver) {
+      this.gameScreen.style.display = "none";
+      this.battleArena.style.display = "none";
+      this.gameContainer.style.display = "none";
+      this.gameEndScreen.style.display = "flex";
+    }
   }
 }

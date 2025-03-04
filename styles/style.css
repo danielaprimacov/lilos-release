@@ -131,7 +131,8 @@ body {
 
 #game-screen,
 #battle-arena,
-#game-container {
+#game-container,
+#game-end {
   opacity: 0;
   visibility: hidden;
   display: none;
@@ -171,4 +172,52 @@ body {
 #game-container p {
   margin: 0;
   padding: 0;
+}
+
+#game-end {
+  width: 1000px;
+  height: 600px;
+  background-image: url("../images/end-game.jpg");
+  background-size: cover;
+  border-radius: 2%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  visibility: visible;
+}
+
+#reuben-end {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  position: absolute;
+  right: 10%;
+  transform: translateY(105%);
+}
+
+#stitch-end {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  display: flex;
+  left: 40%;
+  transform: translateY(300%);
+}
+
+#try-again-btn,
+#exit-btn {
+  width: 120px;
+  height: 60px;
+  font-size: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  position: absolute;
+  transform: translateY(545%);
+}
+
+#try-again-btn {
+  left: 15%;
+}
+
+#exit-btn {
+  left: 35%;
 }
