@@ -37,14 +37,48 @@ class Game {
     // Game Control Settings
     this.gameIsOver = false;
     this.gameIntervalId = null;
+    this.enemyJumpIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
   }
 
   start() {
+    if (this.gameIntervalId) {
+      clearInterval(this.gameIntervalId); // Prevent duplicate intervals if already running
+    }
+
+    if (this.enemyJumpIntervalId) {
+      clearInterval(this.enemyJumpIntervalId);
+    }
+
+    // Reset score, lives, and stats
+    this.score = 0;
+    this.lives = 5;
+    this.hasScored = false;
+    this.gameIsOver = false;
+
+    // Reset the DOM elements for score and lives
+    this.livesHTML.innerText = this.lives;
+    this.scoreHTML.innerText = this.score;
+
+    this.player.left = 200; // Reset to original position
+    this.player.top = 400;
+    this.player.characterRotation = 0;
+    this.player.updatePosition();
+    this.player.isJumping = false;
+    this.player.updateArrowPosition();
+
+    this.enemy.left = 100;
+    this.enemy.top = 100;
+    this.enemy.updatePosition();
+
+    // Clear previous game screen content (e.g., player, enemy)
+    this.gameScreen.innerHTML = "";
+
     this.gameScreen.style.height = `${this.height}px`;
     this.gameScreen.style.width = `${this.width}px`;
 
     this.startScreen.classList.add("hidden");
+    this.gameEndScreen.style.display = "none";
 
     setTimeout(() => {
       this.startScreen.style.display = "none";
@@ -68,7 +102,7 @@ class Game {
       this.gameLoop();
     }, this.gameLoopFrequency);
 
-    setInterval(() => {
+    this.enemyJumpIntervalId = setInterval(() => {
       this.enemy.jumpToTheOtherSide();
     }, 3000);
   }
@@ -77,6 +111,7 @@ class Game {
     this.update();
     if (this.gameIsOver) {
       clearInterval(this.gameIntervalId);
+      clearInterval(this.enemyJumpIntervalId);
     }
   }
 
@@ -110,7 +145,7 @@ class Game {
     }
 
     if (this.lives === 0) {
-      this.endGame();
+      //this.endGame();
     }
 
     this.enemy.resetCollision();
@@ -123,7 +158,26 @@ class Game {
       this.gameScreen.style.display = "none";
       this.battleArena.style.display = "none";
       this.gameContainer.style.display = "none";
+
       this.gameEndScreen.style.display = "flex";
+      this.gameEndScreen.classList.add("active");
+
+      clearInterval(this.gameIntervalId);
+      clearInterval(this.enemyJumpIntervalId);
     }
+  }
+
+  resetGame() {
+    this.gameEndScreen.classList.remove("active");
+
+    setTimeout(() => {
+      this.gameEndScreen.style.display = "none";
+      this.gameContainer.style.display = "flex";
+      this.gameContainer.classList.add("active");
+
+      this.gameScreen.style.display = "flex";
+      this.gameScreen.classList.add("active");
+      this.start();
+    }, 1000);
   }
 }

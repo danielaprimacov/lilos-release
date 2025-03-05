@@ -1,16 +1,26 @@
 window.onload = function () {
   const startButton = document.querySelector("#start-btn");
-  let newGame;
+  const tryAgainButton = document.querySelector("#try-again-btn");
+  const exitButton = document.querySelector("#exit-btn");
+  
+  let newGame = new Game();
 
   startButton.addEventListener("click", () => {
     startGame();
   });
 
+  tryAgainButton.addEventListener("click", () => {
+    resetGame();
+  });
+
   function startGame() {
     console.log("Start Game");
-
-    newGame = new Game();
     newGame.start();
+  }
+
+  function resetGame() {
+    console.log("Reset Game");
+    newGame.resetGame();
   }
 
   window.addEventListener("keydown", (event) => {

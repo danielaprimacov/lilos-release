@@ -171,4 +171,3 @@ _Lilo’s Release_ includes three main screens that guide the player through the
 I'm tracking the development of _Lilo’s Release_ on Trello. You can check out my progress, upcoming features, and tasks here:
 
 🔗 **[Lilo’s Release Trello Board](https://trello.com/b/wsbev5ND/my-kanban-board)**
-```

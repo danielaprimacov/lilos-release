@@ -134,31 +134,35 @@ class Player {
       newTop -= 30;
     } else if (distanceFromCenter > 231 && distanceFromCenter < maxDistance) {
       newLeft -= 0;
-      newTop += 60;
+      newTop -= 50;
     } else if (distanceFromCenter > maxDistance && distanceFromCenter < 260) {
-      newLeft += 60;
+      newLeft -= 10;
+      newTop += 50;
     } else if (
       distanceFromCenter > maxDistance &&
-      distanceFromCenter < 260 &&
+      distanceFromCenter < 265 &&
       this.top < 50
     ) {
-      newLeft -= 90;
-      newTop -= 40;
-    } else if (distanceFromCenter > 260 && distanceFromCenter < 270) {
+      newLeft -= 170;
+      newTop += 40;
+    } else if (distanceFromCenter > maxDistance && distanceFromCenter < 265) {
+      newLeft += 50;
+    } else if (distanceFromCenter > 265 && distanceFromCenter < 270) {
       newLeft += 80;
       newTop += 30;
     } else if (distanceFromCenter > 270 && distanceFromCenter < 280) {
-      newLeft -= 0;
+      newLeft -= 100;
+      newTop -= 40;
     }
 
     // If the new position exceeds the radius, we need to scale it down
     if (distanceFromCenter > maxDistance) {
       const scale = maxDistance / distanceFromCenter; // Calculate scaling factor
-      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale - 10;
-      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale;
+      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale;
+      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale - 1;
     }
 
-    //console.log(`distance ${distanceFromCenter}`);
+    console.log(`distance ${distanceFromCenter}`);
     console.log(`Left ${newLeft} Top ${newTop}`);
 
     // Compute the new character rotation to face the center

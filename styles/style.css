@@ -30,6 +30,8 @@ body {
   opacity: 1;
   visibility: visible;
   position: relative;
+
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 #game-intro.hidden {
@@ -123,12 +125,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-#game-intro,
-#game-screen,
-#battle-arena {
-  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-}
-
 #game-screen,
 #battle-arena,
 #game-container,
@@ -136,6 +132,8 @@ body {
   opacity: 0;
   visibility: hidden;
   display: none;
+
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
 }
 
 #game-screen {
@@ -155,7 +153,8 @@ body {
 
 #game-screen.active,
 #battle-arena.active,
-#game-container.active {
+#game-container.active,
+#game-end.active {
   opacity: 1;
   visibility: visible;
 }
@@ -181,26 +180,31 @@ body {
   background-size: cover;
   border-radius: 2%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  opacity: 1;
-  visibility: visible;
 }
 
-#reuben-end {
+.reuben-end,
+.stitch-end {
+  position: absolute;
+  display: flex;
+}
+
+.reuben-end img {
   width: 200px;
   height: 300px;
-  display: flex;
-  position: absolute;
-  right: 10%;
-  transform: translateY(105%);
+  transform: translate(370%, 105%);
 }
 
-#stitch-end {
+.stitch-end img {
   width: 150px;
   height: 150px;
-  position: absolute;
+  transform: translate(250%, 300%);
+}
+
+.end-game-actions {
   display: flex;
-  left: 40%;
-  transform: translateY(300%);
+  justify-content: space-between;
+  gap: 70px;
+  transform: translate(35%, 55%);
 }
 
 #try-again-btn,
@@ -209,15 +213,29 @@ body {
   height: 60px;
   font-size: 1.5rem;
   border-radius: 8px;
-  display: flex;
-  position: absolute;
-  transform: translateY(545%);
 }
 
-#try-again-btn {
-  left: 15%;
+#try-again-btn:hover,
+#exit-btn:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-#exit-btn {
-  left: 35%;
+#try-again-btn:hover {
+  animation: shake 0.3s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
 }
