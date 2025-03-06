@@ -127,8 +127,8 @@ body {
 
 #game-screen,
 #battle-arena,
-#game-container,
-#game-end {
+#game-end-lose,
+#game-end-win {
   opacity: 0;
   visibility: hidden;
   display: none;
@@ -153,30 +153,16 @@ body {
 
 #game-screen.active,
 #battle-arena.active,
-#game-container.active,
-#game-end.active {
+#game-end-lose.active,
+#game-end-win.active {
   opacity: 1;
   visibility: visible;
 }
 
-#game-container {
-  width: 200px;
-  height: 100px;
-  flex-direction: column;
-  justify-content: flex-start;
-  transform: translate(-260%, 220%);
-  font-size: 2rem;
-}
-
-#game-container p {
-  margin: 0;
-  padding: 0;
-}
-
-#game-end {
+#game-end-lose {
   width: 1000px;
   height: 600px;
-  background-image: url("../images/end-game.jpg");
+  background-image: url("../images/end-game-lose.jpg");
   background-size: cover;
   border-radius: 2%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -200,14 +186,23 @@ body {
   transform: translate(250%, 300%);
 }
 
-.end-game-actions {
+#game-end-win {
+  width: 1000px;
+  height: 600px;
+  background-image: url("../images/game-end-win.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 2%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.end-game-action {
   display: flex;
-  justify-content: space-between;
-  gap: 70px;
   transform: translate(55%, 55%);
 }
 
 #try-again-btn {
+  display: flex;
   width: 250px;
   height: 60px;
   font-size: 1.8rem;
@@ -220,6 +215,10 @@ body {
 
 #try-again-btn:hover {
   animation: shake 0.3s ease-in-out infinite;
+}
+
+#game-end-win .end-game-action {
+  transform: translate(250%, 60%);
 }
 
 @keyframes shake {
@@ -291,4 +290,9 @@ body {
 .player-health {
   border: 1px solid #51d5fe;
   transform: translate(13%, 2250%);
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s ease-out;
 }

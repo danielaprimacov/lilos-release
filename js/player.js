@@ -30,7 +30,7 @@ class Player {
     this.gameScreen.appendChild(this.arrowElement);
 
     // Health
-    let progressHealth = document.createElement("progress");
+    const progressHealth = document.createElement("progress");
     progressHealth.value = 100;
     progressHealth.max = 100;
     progressHealth.min = 0;

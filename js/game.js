@@ -2,9 +2,9 @@ class Game {
   constructor() {
     this.startScreen = document.getElementById("game-intro");
     this.gameScreen = document.getElementById("game-screen");
-    this.gameEndScreen = document.getElementById("game-end");
+    this.gameEndScreen = document.getElementById("game-end-lose");
+    this.gameEndScreenWin = document.getElementById("game-end-win");
     this.battleArena = document.getElementById("battle-arena");
-    this.gameContainer = document.getElementById("game-container");
     this.player = new Player(
       this.battleArena,
       200,
@@ -41,10 +41,11 @@ class Game {
       clearInterval(this.enemyJumpIntervalId);
     }
 
+    this.hasCollied = false;
     this.gameIsOver = false;
 
     // Reset to original position
-    this.player.left = 200; 
+    this.player.left = 200;
     this.player.top = 400;
     this.player.characterRotation = 0;
     this.player.updatePosition();
@@ -106,13 +107,24 @@ class Game {
       }
     } else if (
       this.player.isJumping &&
-      this.player.isPlayerTouchingEnemy(this.enemy)
+      this.player.isPlayerTouchingEnemy(this.enemy) &&
+      !this.hasCollied
     ) {
       this.enemy.health.value -= 10;
+      this.hasCollied = true;
+    }
+
+    if (
+      !this.player.isJumping ||
+      !this.player.isPlayerTouchingEnemy(this.enemy)
+    ) {
+      this.hasCollied = false;
     }
 
     if (this.player.health.value === 0) {
       this.endGame();
+    } else if (this.enemy.health.value === 0) {
+      this.endGameWin();
     }
 
     this.enemy.resetCollision();
@@ -126,7 +138,24 @@ class Game {
       this.battleArena.style.display = "none";
 
       this.gameEndScreen.style.display = "flex";
-      this.gameEndScreen.classList.add;
+      this.gameEndScreen.classList.add("active");
+
+      clearInterval(this.gameIntervalId);
+      clearInterval(this.enemyJumpIntervalId);
+    }
+  }
+
+  endGameWin() {
+    this.gameIsOver = true;
+    if (this.gameIsOver) {
+      this.gameScreen.style.display = "none";
+      this.battleArena.style.display = "none";
+      this.gameEndScreen.style.display = "none";
+      this.gameEndScreen.classList.remove("active");
+      this.gameEndScreen.classList.add
+
+      this.gameEndScreenWin.style.display = "flex";
+      this.gameEndScreenWin.classList.add("active");
 
       clearInterval(this.gameIntervalId);
       clearInterval(this.enemyJumpIntervalId);
@@ -134,6 +163,12 @@ class Game {
   }
 
   resetGame() {
-    window.location.reload();
+    const gameContainer = document.querySelector("main");
+    if (this.gameIsOver) {
+      gameContainer.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
   }
 }

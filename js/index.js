@@ -1,6 +1,6 @@
 window.onload = function () {
   const startButton = document.querySelector("#start-btn");
-  const tryAgainButton = document.querySelector("#try-again-btn");
+  const tryAgainButtons = document.querySelectorAll("#try-again-btn");
 
   let newGame = new Game();
 
@@ -8,10 +8,11 @@ window.onload = function () {
     startGame();
   });
 
-  tryAgainButton.addEventListener("click", () => {
-    resetGame();
+  tryAgainButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      resetGame();
+    });
   });
-
 
   function startGame() {
     console.log("Start Game");
@@ -23,7 +24,6 @@ window.onload = function () {
 
     newGame.resetGame();
   }
-
 
   window.addEventListener("keydown", (event) => {
     const possibleKeys = ["ArrowLeft", "ArrowRight", "Space", " "];
