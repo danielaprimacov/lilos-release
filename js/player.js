@@ -52,7 +52,9 @@ class Player {
       this.top - this.height / 2 - arrowDistance * Math.cos(angleInRadians);
 
     // When Stitch is at the top, enforce a specific top value
-    if (this.top > 0 && this.top < 50) {
+    if (this.top < 0) {
+      this.arrowElement.style.top = `${this.top - 150}px`;
+    } else if (this.top > 0 && this.top < 50) {
       this.arrowElement.style.top = `${this.top - 180}px`;
       this.arrowElement.style.left = `${arrowX}px`;
     } else if (this.top > 50 && this.top < 100) {
@@ -131,35 +133,35 @@ class Player {
       newTop -= 50;
     } else if (distanceFromCenter > 221 && distanceFromCenter < 231) {
       newLeft += 20;
-      newTop -= 30;
+      newTop -= 100;
     } else if (distanceFromCenter > 231 && distanceFromCenter < maxDistance) {
-      newLeft -= 0;
+      newLeft -= 90;
       newTop -= 50;
     } else if (distanceFromCenter > maxDistance && distanceFromCenter < 260) {
       newLeft -= 10;
-      newTop += 50;
+      newTop -= 30;
     } else if (
       distanceFromCenter > maxDistance &&
-      distanceFromCenter < 265 &&
-      this.top < 50
+      distanceFromCenter < 269 &&
+      newTop < 50
     ) {
-      newLeft -= 170;
-      newTop += 40;
-    } else if (distanceFromCenter > maxDistance && distanceFromCenter < 265) {
+      newLeft -= 200;
+      newTop += 440;
+    } else if (distanceFromCenter > maxDistance && distanceFromCenter < 269) {
       newLeft += 50;
-    } else if (distanceFromCenter > 265 && distanceFromCenter < 270) {
+    } else if (distanceFromCenter > 269 && distanceFromCenter < 270) {
       newLeft += 80;
       newTop += 30;
     } else if (distanceFromCenter > 270 && distanceFromCenter < 280) {
       newLeft -= 100;
-      newTop -= 40;
+      newTop -= 0;
     }
 
     // If the new position exceeds the radius, we need to scale it down
-    if (distanceFromCenter > maxDistance) {
+    if (distanceFromCenter > 280) {
       const scale = maxDistance / distanceFromCenter; // Calculate scaling factor
-      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale;
-      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale - 1;
+      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale - 10;
+      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale - 10;
     }
 
     console.log(`distance ${distanceFromCenter}`);

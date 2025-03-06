@@ -145,7 +145,7 @@ class Game {
     }
 
     if (this.lives === 0) {
-      //this.endGame();
+      this.endGame();
     }
 
     this.enemy.resetCollision();
@@ -179,5 +179,18 @@ class Game {
       this.gameScreen.classList.add("active");
       this.start();
     }, 1000);
+  }
+
+  exitGame() {
+    this.gameEndScreen.classList.remove("active");
+    this.gameEndScreen.style.display = "none";
+    this.gameContainer.classList.remove("active");
+    this.gameContainer.style.display = "none";
+    this.gameScreen.classList.remove("active");
+    this.gameScreen.style.display = "none";
+
+    this.startScreen.classList.add("active");
+    this.startScreen.classList.remove("hidden");
+    this.startScreen.style.display = "flex";
   }
 }
