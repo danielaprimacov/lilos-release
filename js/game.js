@@ -25,15 +25,6 @@ class Game {
     this.height = 600;
     this.width = 1000;
 
-    // Game Stats
-    this.score = 0;
-    this.scoreHTML = document.getElementById("score");
-
-    this.lives = 5;
-    this.livesHTML = document.getElementById("lives");
-
-    this.hasScored = false;
-
     // Game Control Settings
     this.gameIsOver = false;
     this.gameIntervalId = null;
@@ -43,24 +34,17 @@ class Game {
 
   start() {
     if (this.gameIntervalId) {
-      clearInterval(this.gameIntervalId); // Prevent duplicate intervals if already running
+      clearInterval(this.gameIntervalId);
     }
 
     if (this.enemyJumpIntervalId) {
       clearInterval(this.enemyJumpIntervalId);
     }
 
-    // Reset score, lives, and stats
-    this.score = 0;
-    this.lives = 5;
-    this.hasScored = false;
     this.gameIsOver = false;
 
-    // Reset the DOM elements for score and lives
-    this.livesHTML.innerText = this.lives;
-    this.scoreHTML.innerText = this.score;
-
-    this.player.left = 200; // Reset to original position
+    // Reset to original position
+    this.player.left = 200; 
     this.player.top = 400;
     this.player.characterRotation = 0;
     this.player.updatePosition();
@@ -89,13 +73,11 @@ class Game {
       this.gameScreen.appendChild(this.battleArena);
       this.battleArena.style.display = "flex";
       this.battleArena.classList.add("active");
-
-      this.gameScreen.appendChild(this.gameContainer);
-      this.gameContainer.style.display = "flex";
-      this.gameContainer.classList.add("active");
     }, 1000);
 
     this.gameScreen.appendChild(this.battleArena);
+    this.gameScreen.appendChild(this.enemy.health);
+    this.gameScreen.appendChild(this.player.health);
     this.battleArena.style.display = "flex";
 
     this.gameIntervalId = setInterval(() => {
@@ -119,32 +101,17 @@ class Game {
     this.enemy.move();
 
     if (!this.player.isJumping && this.enemy.didCollide(this.player)) {
-      if (this.lives > 0) {
-        this.lives--;
-        // Change lives on the DOM
-        this.livesHTML.innerText = this.lives;
+      if (this.player.health.value > 0) {
+        this.player.health.value -= 10;
       }
     } else if (
       this.player.isJumping &&
-      this.player.isPlayerTouchingEnemy(this.enemy) &&
-      !this.hasScored
+      this.player.isPlayerTouchingEnemy(this.enemy)
     ) {
-      this.score++;
-      // Change score on the DOM
-      this.scoreHTML.innerText = this.score;
-
-      this.hasScored = true;
+      this.enemy.health.value -= 10;
     }
 
-    // If the player is no longer touching the enemy, reset hasScored
-    if (
-      !this.player.isJumping ||
-      !this.player.isPlayerTouchingEnemy(this.enemy)
-    ) {
-      this.hasScored = false;
-    }
-
-    if (this.lives === 0) {
+    if (this.player.health.value === 0) {
       this.endGame();
     }
 
@@ -157,10 +124,9 @@ class Game {
     if (this.gameIsOver) {
       this.gameScreen.style.display = "none";
       this.battleArena.style.display = "none";
-      this.gameContainer.style.display = "none";
 
       this.gameEndScreen.style.display = "flex";
-      this.gameEndScreen.classList.add("active");
+      this.gameEndScreen.classList.add;
 
       clearInterval(this.gameIntervalId);
       clearInterval(this.enemyJumpIntervalId);
@@ -168,29 +134,6 @@ class Game {
   }
 
   resetGame() {
-    this.gameEndScreen.classList.remove("active");
-
-    setTimeout(() => {
-      this.gameEndScreen.style.display = "none";
-      this.gameContainer.style.display = "flex";
-      this.gameContainer.classList.add("active");
-
-      this.gameScreen.style.display = "flex";
-      this.gameScreen.classList.add("active");
-      this.start();
-    }, 1000);
-  }
-
-  exitGame() {
-    this.gameEndScreen.classList.remove("active");
-    this.gameEndScreen.style.display = "none";
-    this.gameContainer.classList.remove("active");
-    this.gameContainer.style.display = "none";
-    this.gameScreen.classList.remove("active");
-    this.gameScreen.style.display = "none";
-
-    this.startScreen.classList.add("active");
-    this.startScreen.classList.remove("hidden");
-    this.startScreen.style.display = "flex";
+    window.location.reload();
   }
 }

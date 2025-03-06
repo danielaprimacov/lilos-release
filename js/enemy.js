@@ -6,6 +6,7 @@ class Enemy {
     this.angle = Math.random() * 360;
     this.speed = 0.8;
     this.isJumping = false;
+    this.health;
 
     this.enemyElement = document.createElement("img");
     this.enemyElement.src = imageURL;
@@ -29,6 +30,16 @@ class Enemy {
     // Cooldown timer for collision detection (in milliseconds)
     this.collisionCooldown = 2000; // 1 second cooldown
     this.lastCollisionTime = 0; // Last collision timestamp
+
+    // Health
+    let progressHealth = document.createElement("progress");
+    progressHealth.value = 100;
+    progressHealth.max = 100;
+    progressHealth.min = 0;
+
+    progressHealth.classList.add("enemy-health");
+
+    this.health = progressHealth;
   }
 
   updatePosition() {

@@ -9,6 +9,7 @@ class Player {
     this.arrowDirection = 1;
     this.arrowRotation = 0;
     this.isJumping = false;
+    this.health;
 
     this.element = document.createElement("img");
     this.element.src = imageURL;
@@ -27,6 +28,16 @@ class Player {
     this.arrowElement = arrowElement;
     // Append to the arrow element
     this.gameScreen.appendChild(this.arrowElement);
+
+    // Health
+    let progressHealth = document.createElement("progress");
+    progressHealth.value = 100;
+    progressHealth.max = 100;
+    progressHealth.min = 0;
+
+    progressHealth.classList.add("player-health");
+
+    this.health = progressHealth;
     this.updatePosition();
   }
 
@@ -143,7 +154,7 @@ class Player {
     } else if (
       distanceFromCenter > maxDistance &&
       distanceFromCenter < 269 &&
-      newTop < 50
+      this.top < 50
     ) {
       newLeft -= 200;
       newTop += 440;

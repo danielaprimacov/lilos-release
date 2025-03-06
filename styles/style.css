@@ -204,19 +204,17 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 70px;
-  transform: translate(35%, 55%);
+  transform: translate(55%, 55%);
 }
 
-#try-again-btn,
-#exit-btn {
-  width: 120px;
+#try-again-btn {
+  width: 250px;
   height: 60px;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   border-radius: 8px;
 }
 
-#try-again-btn:hover,
-#exit-btn:hover {
+#try-again-btn:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -238,4 +236,59 @@ body {
   75% {
     transform: translateX(-3px);
   }
+}
+
+.enemy-health,
+.player-health {
+  position: absolute;
+  width: 800px;
+  height: 25px;
+  appearance: none;
+  border-radius: 10px;
+  transform: translateX(13%);
+  overflow: hidden;
+}
+
+.enemy-health {
+  margin-top: 10px;
+  border: 1px solid #f6ef9f;
+}
+
+.enemy-health::-webkit-progress-bar,
+.player-health::-webkit-progress-bar {
+  background: transparent;
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+.enemy-health::-webkit-progress-value,
+.player-health::-webkit-progress-value {
+  border-radius: 10px;
+  clip-path: inset(0 0 0 0 round 10px);
+}
+
+.enemy-health::-webkit-progress-value {
+  background: #f6ef9f;
+}
+
+.player-health::-webkit-progress-value {
+  background: #51d5fe;
+}
+
+.enemy-health::-moz-progress-bar,
+.player-health::-moz-progress-bar {
+  border-radius: 10px;
+  opacity: 0.6;
+}
+.enemy-health::-moz-progress-bar {
+  background: #f6ef9f;
+}
+
+.player-health::-moz-progress-bar {
+  background: #51d5fe;
+}
+
+.player-health {
+  border: 1px solid #51d5fe;
+  transform: translate(13%, 2250%);
 }
