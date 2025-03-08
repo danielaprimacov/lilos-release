@@ -261,9 +261,9 @@ class Game {
   <h1>How to Play</h1>
   <p>Use the left and right arrow keys to move the player and use the space bar to jump.</p>
   <div id="how-to-play-actions">
-    <img src="../images/keyboard-key-left-arrow.png" alt="How to play - left arrow" class="keyboard-arrow">
-    <img src="../images/space-key.png" alt="How to play - space bar" class="keyboard-space">
-    <img src="../images/keyboard-key-right-arrow.png" alt="How to play - right arrow" class="keyboard-arrow">
+    <img src="./images/keyboard-key-left-arrow.png" alt="How to play - left arrow" class="keyboard-arrow">
+    <img src="./images/space-key.png" alt="How to play - space bar" class="keyboard-space">
+    <img src="./images/keyboard-key-right-arrow.png" alt="How to play - right arrow" class="keyboard-arrow">
   </div>
   <p>The goal is to defeat the enemy by reducing his health to 0. The player and enemy health bars are visible above. To rescue Lilo, you must empty the enemy's health bar!</p>
 `;
