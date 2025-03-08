@@ -56,10 +56,9 @@ class Game {
     setTimeout(() => {
       // Play the background music
       this.bgMusic.loop = true;
-      this.bgMusic.volume = 0.1;
+      this.bgMusic.volume = 0.07;
       this.bgMusic.play();
-      
-      
+
       this.startScreen.style.opacity = "0"; // Start fading out
       this.gameEndScreen.style.display = "none";
       // Clear previous game screen content (e.g., player, enemy)
@@ -132,6 +131,7 @@ class Game {
 
   update() {
     this.enemy.move();
+    const stitchSound = new Audio("../audio/stitch.mp3");
 
     if (!this.player.isJumping && this.enemy.didCollide(this.player)) {
       if (this.player.health.value > 0) {
@@ -142,6 +142,11 @@ class Game {
       this.player.isPlayerTouchingEnemy(this.enemy) &&
       !this.hasCollied
     ) {
+      this.bgMusic.pause();
+      this.bgMusic.currentTime = 0;
+      stitchSound.play();
+      stitchSound.volume = 0.06;
+
       this.enemy.health.value -= 10;
       this.hasCollied = true;
     }
@@ -151,6 +156,8 @@ class Game {
       !this.player.isPlayerTouchingEnemy(this.enemy)
     ) {
       this.hasCollied = false;
+
+      this.bgMusic.play(); // Resume background music after stitch sound ends
     }
 
     if (this.player.health.value === 0) {
