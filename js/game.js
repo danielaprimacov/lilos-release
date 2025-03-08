@@ -32,6 +32,7 @@ class Game {
     this.gameLoopFrequency = Math.round(1000 / 60);
 
     this.modalScreen;
+    this.bgMusic = new Audio("../audio/stitch-instrumental.mp3");
   }
 
   start() {
@@ -53,6 +54,12 @@ class Game {
 
     // Fade out the game intro smoothly
     setTimeout(() => {
+      // Play the background music
+      this.bgMusic.loop = true;
+      this.bgMusic.volume = 0.1;
+      this.bgMusic.play();
+      
+      
       this.startScreen.style.opacity = "0"; // Start fading out
       this.gameEndScreen.style.display = "none";
       // Clear previous game screen content (e.g., player, enemy)
@@ -160,6 +167,10 @@ class Game {
     this.gameIsOver = true;
     if (this.gameIsOver) {
       setTimeout(() => {
+        // Stop the Music
+        this.bgMusic.pause();
+        this.bgMusic.currentTime = 0;
+
         this.gameScreen.style.display = "none";
         this.battleArena.style.display = "none";
 
@@ -175,6 +186,10 @@ class Game {
   endGameWin() {
     this.gameIsOver = true;
     if (this.gameIsOver) {
+      // Stop the Music
+      this.bgMusic.pause();
+      this.bgMusic.currentTime = 0;
+
       this.gameScreen.style.display = "none";
       this.battleArena.style.display = "none";
       this.gameEndScreen.style.display = "none";
@@ -201,43 +216,16 @@ class Game {
 
   createHowToPlayModal() {
     const explanation = document.createElement("div");
-    const explanationTitle = document.createElement("h1");
-    const explanationParagraph = document.createElement("p");
-    const goalParagraph = document.createElement("p");
-    const actions = document.createElement("div");
-    const leftArrow = document.createElement("img");
-    const rightArrow = document.createElement("img");
-    const spaceBar = document.createElement("img");
-
-    actions.id = "how-to-play-actions";
-
-    leftArrow.src = "../images/keyboard-key-left-arrow.png";
-    leftArrow.alt = "How to play - left arrow";
-    leftArrow.classList.add("keyboard-arrow");
-
-    rightArrow.src = "../images/keyboard-key-right-arrow.png";
-    rightArrow.alt = "How to play - right arrow";
-    rightArrow.classList.add("keyboard-arrow");
-
-    spaceBar.src = "../images/space-key.png";
-    spaceBar.alt = "How to play - space bar";
-    spaceBar.classList.add("keyboard-space");
-
-    actions.appendChild(leftArrow);
-    actions.appendChild(spaceBar);
-    actions.appendChild(rightArrow);
-
-    explanationTitle.textContent = "How to Play";
-    explanationParagraph.textContent =
-      "Use the left and right arrow keys to move the player and use the space bar to jump.";
-
-    goalParagraph.textContent =
-      "The goal is to defeat the enemy by reducing his health to 0.The player and enemy health bars are visible above. To rescue Lilo, you must empty the enemy's health bar!";
-
-    explanation.appendChild(explanationTitle);
-    explanation.appendChild(explanationParagraph);
-    explanation.appendChild(actions);
-    explanation.appendChild(goalParagraph);
+    explanation.innerHTML = `
+  <h1>How to Play</h1>
+  <p>Use the left and right arrow keys to move the player and use the space bar to jump.</p>
+  <div id="how-to-play-actions">
+    <img src="../images/keyboard-key-left-arrow.png" alt="How to play - left arrow" class="keyboard-arrow">
+    <img src="../images/space-key.png" alt="How to play - space bar" class="keyboard-space">
+    <img src="../images/keyboard-key-right-arrow.png" alt="How to play - right arrow" class="keyboard-arrow">
+  </div>
+  <p>The goal is to defeat the enemy by reducing his health to 0. The player and enemy health bars are visible above. To rescue Lilo, you must empty the enemy's health bar!</p>
+`;
 
     this.modalScreen.appendChild(explanation);
   }

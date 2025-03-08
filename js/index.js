@@ -21,7 +21,6 @@ window.onload = function () {
 
   function resetGame() {
     console.log("Reset Game");
-
     newGame.resetGame();
   }
 
