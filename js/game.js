@@ -34,8 +34,8 @@ class Game {
     this.modalScreen;
     this.isMuted = false;
 
-    this.bgMusic = new Audio("../audio/stitch-instrumental.mp3");
-    this.reubenWin = new Audio("../audio/reuben-win.mp3");
+    this.bgMusic = new Audio("./audio/stitch-instrumental.mp3");
+    this.reubenWin = new Audio("./audio/reuben-win.mp3");
     this.allAudio = [this.bgMusic];
   }
 
@@ -82,7 +82,7 @@ class Game {
         this.gameScreen.classList.add("active");
 
         const musicActions = document.createElement("div");
-        musicActions.innerHTML = `<img id="music-action" src="../images/music.png" alt="Music icon">`;
+        musicActions.innerHTML = `<img id="music-action" src="./images/music.png" alt="Music icon">`;
         this.gameScreen.appendChild(musicActions);
 
         const music = document.getElementById("music-action");
@@ -94,7 +94,7 @@ class Game {
               audio.muted = false; // Unmute each audio
               audio.play(); // Start playing if needed
             });
-            music.src = "../images/music.png"; // Change music icon to unmuted
+            music.src = "./images/music.png"; // Change music icon to unmuted
             this.isMuted = false;
           } else {
             // Mute all audio
@@ -102,7 +102,7 @@ class Game {
               audio.muted = true; // Mute each audio
               audio.pause(); // Stop any playing audio
             });
-            music.src = "../images/muted-music.png"; // Change music icon to muted
+            music.src = "./images/muted-music.png"; // Change music icon to muted
             this.isMuted = true;
           }
         });
