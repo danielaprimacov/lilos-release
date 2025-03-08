@@ -36,6 +36,7 @@ class Game {
 
     this.bgMusic = new Audio("./audio/stitch-instrumental.mp3");
     this.reubenWin = new Audio("./audio/reuben-win.mp3");
+    this.stitchWin = new Audio("./audio/stitch-win.mp3");
     this.allAudio = [this.bgMusic];
   }
 
@@ -185,9 +186,9 @@ class Game {
     }
 
     if (this.player.health.value === 0) {
-      this.endGame();
+      //this.endGame();
     } else if (this.enemy.health.value === 0) {
-      this.endGameWin();
+      //this.endGameWin();
     }
 
     this.enemy.resetCollision();
@@ -237,8 +238,13 @@ class Game {
       this.gameEndScreenWin.style.display = "flex";
 
       setTimeout(() => {
+        this.stitchWin.play();
+        this.stitchWin.volume = 0.1;
         this.gameEndScreenWin.classList.add("active");
       }, 500);
+
+      this.stitchWin.pause();
+      this.stitchWin.currentTime = 0;
 
       clearInterval(this.gameIntervalId);
       clearInterval(this.enemyJumpIntervalId);

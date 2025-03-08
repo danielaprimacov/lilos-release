@@ -143,8 +143,8 @@ class Player {
       newLeft -= 50;
       newTop -= 50;
     } else if (distanceFromCenter > 221 && distanceFromCenter < 231) {
-      newLeft += 20;
-      newTop -= 100;
+      newLeft += 40;
+      newTop -= 40;
     } else if (distanceFromCenter > 231 && distanceFromCenter < maxDistance) {
       newLeft -= 90;
       newTop -= 50;
@@ -164,15 +164,15 @@ class Player {
       newLeft += 80;
       newTop += 30;
     } else if (distanceFromCenter > 270 && distanceFromCenter < 280) {
-      newLeft -= 100;
+      newLeft -= 10;
       newTop -= 0;
     }
 
     // If the new position exceeds the radius, we need to scale it down
     if (distanceFromCenter > 280) {
       const scale = maxDistance / distanceFromCenter; // Calculate scaling factor
-      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale - 10;
-      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale - 10;
+      newLeft = arena.width / 2 + (newLeft - arena.width / 2) * scale-10;
+      newTop = arena.height / 2 + (newTop - arena.height / 2) * scale-10;
     }
 
     console.log(`distance ${distanceFromCenter}`);
