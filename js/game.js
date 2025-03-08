@@ -32,7 +32,13 @@ class Game {
     this.gameLoopFrequency = Math.round(1000 / 60);
 
     this.modalScreen;
+    this.isMuted = false;
+
     this.bgMusic = new Audio("../audio/stitch-instrumental.mp3");
+    this.stitchSound = new Audio("../audio/stitch.mp3");
+    this.reubenWin = new Audio("../audio/reuben-win.mp3");
+    this.allAudio = [this.bgMusic];
+    this.allAudio.push(this.stitchSound);
   }
 
   start() {
@@ -55,9 +61,11 @@ class Game {
     // Fade out the game intro smoothly
     setTimeout(() => {
       // Play the background music
-      this.bgMusic.loop = true;
-      this.bgMusic.volume = 0.07;
-      this.bgMusic.play();
+      if (!this.isMuted) {
+        this.bgMusic.loop = true;
+        this.bgMusic.volume = 0.07;
+        this.bgMusic.play();
+      }
 
       this.startScreen.style.opacity = "0"; // Start fading out
       this.gameEndScreen.style.display = "none";
@@ -74,6 +82,32 @@ class Game {
         // Show the game screen (but with the transition modal on top)
         this.gameScreen.style.display = "flex";
         this.gameScreen.classList.add("active");
+
+        const musicActions = document.createElement("div");
+        musicActions.innerHTML = `<img id="music-action" src="./images/music.png" alt="Music icon">`;
+        this.gameScreen.appendChild(musicActions);
+
+        const music = document.getElementById("music-action");
+
+        musicActions.addEventListener("click", () => {
+          if (this.isMuted) {
+            // Unmute all audio
+            this.allAudio.forEach((audio) => {
+              audio.muted = false; // Unmute each audio
+              audio.play(); // Start playing if needed
+            });
+            music.src = "./images/music.png"; // Change music icon to unmuted
+            this.isMuted = false;
+          } else {
+            // Mute all audio
+            this.allAudio.forEach((audio) => {
+              audio.muted = true; // Mute each audio
+              audio.pause(); // Stop any playing audio
+            });
+            music.src = "./images/muted-music.png"; // Change music icon to muted
+            this.isMuted = true;
+          }
+        });
 
         this.gameScreen.appendChild(this.battleArena);
         this.battleArena.style.display = "flex";
@@ -131,7 +165,6 @@ class Game {
 
   update() {
     this.enemy.move();
-    const stitchSound = new Audio("../audio/stitch.mp3");
 
     if (!this.player.isJumping && this.enemy.didCollide(this.player)) {
       if (this.player.health.value > 0) {
@@ -144,8 +177,8 @@ class Game {
     ) {
       this.bgMusic.pause();
       this.bgMusic.currentTime = 0;
-      stitchSound.play();
-      stitchSound.volume = 0.06;
+      this.stitchSound.play();
+      this.stitchSound.volume = 0.06;
 
       this.enemy.health.value -= 10;
       this.hasCollied = true;
@@ -172,6 +205,7 @@ class Game {
 
   endGame() {
     this.gameIsOver = true;
+
     if (this.gameIsOver) {
       setTimeout(() => {
         // Stop the Music
@@ -182,11 +216,18 @@ class Game {
         this.battleArena.style.display = "none";
 
         this.gameEndScreen.style.display = "flex";
-        this.gameEndScreen.classList.add("active");
+
+        setTimeout(() => {
+          this.gameEndScreen.classList.add("active");
+          this.reubenWin.play();
+          this.reubenWin.volume = 0.1;
+        }, 500);
 
         clearInterval(this.gameIntervalId);
         clearInterval(this.enemyJumpIntervalId);
       }, 500);
+      this.reubenWin.pause();
+      this.reubenWin.currentTime = 0;
     }
   }
 
@@ -201,10 +242,12 @@ class Game {
       this.battleArena.style.display = "none";
       this.gameEndScreen.style.display = "none";
       this.gameEndScreen.classList.remove("active");
-      this.gameEndScreen.classList.add;
 
       this.gameEndScreenWin.style.display = "flex";
-      this.gameEndScreenWin.classList.add("active");
+
+      setTimeout(() => {
+        this.gameEndScreenWin.classList.add("active");
+      }, 500);
 
       clearInterval(this.gameIntervalId);
       clearInterval(this.enemyJumpIntervalId);

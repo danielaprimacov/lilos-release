@@ -144,6 +144,18 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+#music-action {
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  transform: translate(40%, 450%);
+  cursor: pointer;
+}
+
+#music-action {
+  filter: invert(1);
+}
+
 #battle-arena {
   width: 500px;
   height: 500px;
