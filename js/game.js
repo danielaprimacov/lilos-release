@@ -35,10 +35,8 @@ class Game {
     this.isMuted = false;
 
     this.bgMusic = new Audio("../audio/stitch-instrumental.mp3");
-    this.stitchSound = new Audio("../audio/stitch.mp3");
     this.reubenWin = new Audio("../audio/reuben-win.mp3");
     this.allAudio = [this.bgMusic];
-    this.allAudio.push(this.stitchSound);
   }
 
   start() {
@@ -84,7 +82,7 @@ class Game {
         this.gameScreen.classList.add("active");
 
         const musicActions = document.createElement("div");
-        musicActions.innerHTML = `<img id="music-action" src="./images/music.png" alt="Music icon">`;
+        musicActions.innerHTML = `<img id="music-action" src="../images/music.png" alt="Music icon">`;
         this.gameScreen.appendChild(musicActions);
 
         const music = document.getElementById("music-action");
@@ -96,7 +94,7 @@ class Game {
               audio.muted = false; // Unmute each audio
               audio.play(); // Start playing if needed
             });
-            music.src = "./images/music.png"; // Change music icon to unmuted
+            music.src = "../images/music.png"; // Change music icon to unmuted
             this.isMuted = false;
           } else {
             // Mute all audio
@@ -104,7 +102,7 @@ class Game {
               audio.muted = true; // Mute each audio
               audio.pause(); // Stop any playing audio
             });
-            music.src = "./images/muted-music.png"; // Change music icon to muted
+            music.src = "../images/muted-music.png"; // Change music icon to muted
             this.isMuted = true;
           }
         });
@@ -175,11 +173,6 @@ class Game {
       this.player.isPlayerTouchingEnemy(this.enemy) &&
       !this.hasCollied
     ) {
-      this.bgMusic.pause();
-      this.bgMusic.currentTime = 0;
-      this.stitchSound.play();
-      this.stitchSound.volume = 0.06;
-
       this.enemy.health.value -= 10;
       this.hasCollied = true;
     }
@@ -189,8 +182,6 @@ class Game {
       !this.player.isPlayerTouchingEnemy(this.enemy)
     ) {
       this.hasCollied = false;
-
-      this.bgMusic.play(); // Resume background music after stitch sound ends
     }
 
     if (this.player.health.value === 0) {
@@ -270,8 +261,8 @@ class Game {
   <h1>How to Play</h1>
   <p>Use the left and right arrow keys to move the player and use the space bar to jump.</p>
   <div id="how-to-play-actions">
-    <img src="../images/keyboard-key-left-arrow.png" alt="How to play - left arrow" class="keyboard-arrow">
-    <img src="../images/space-key.png" alt="How to play - space bar" class="keyboard-space">
+    <img src="./images/keyboard-key-left-arrow.png" alt="How to play - left arrow" class="keyboard-arrow">
+    <img src="./images/space-key.png" alt="How to play - space bar" class="keyboard-space">
     <img src="../images/keyboard-key-right-arrow.png" alt="How to play - right arrow" class="keyboard-arrow">
   </div>
   <p>The goal is to defeat the enemy by reducing his health to 0. The player and enemy health bars are visible above. To rescue Lilo, you must empty the enemy's health bar!</p>

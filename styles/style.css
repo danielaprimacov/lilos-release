@@ -150,9 +150,6 @@ body {
   position: absolute;
   transform: translate(40%, 450%);
   cursor: pointer;
-}
-
-#music-action {
   filter: invert(1);
 }
 
