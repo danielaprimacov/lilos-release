@@ -186,9 +186,9 @@ class Game {
     }
 
     if (this.player.health.value === 0) {
-      //this.endGame();
+      this.endGame();
     } else if (this.enemy.health.value === 0) {
-      //this.endGameWin();
+      this.endGameWin();
     }
 
     this.enemy.resetCollision();
