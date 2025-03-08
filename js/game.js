@@ -30,6 +30,8 @@ class Game {
     this.gameIntervalId = null;
     this.enemyJumpIntervalId = null;
     this.gameLoopFrequency = Math.round(1000 / 60);
+
+    this.modalScreen;
   }
 
   start() {
@@ -44,50 +46,73 @@ class Game {
     this.hasCollied = false;
     this.gameIsOver = false;
 
-    // Reset to original position
-    this.player.left = 200;
-    this.player.top = 400;
-    this.player.characterRotation = 0;
-    this.player.updatePosition();
-    this.player.isJumping = false;
-    this.player.updateArrowPosition();
+    if (!this.modalScreen) {
+      this.modalScreen = document.getElementById("modal-screen");
+      this.modalScreen.innerText = "Get Ready";
+    }
 
-    this.enemy.left = 100;
-    this.enemy.top = 100;
-    this.enemy.updatePosition();
-
-    // Clear previous game screen content (e.g., player, enemy)
-    this.gameScreen.innerHTML = "";
-
-    this.gameScreen.style.height = `${this.height}px`;
-    this.gameScreen.style.width = `${this.width}px`;
-
-    this.startScreen.classList.add("hidden");
-    this.gameEndScreen.style.display = "none";
-
+    // Fade out the game intro smoothly
     setTimeout(() => {
-      this.startScreen.style.display = "none";
+      this.startScreen.style.opacity = "0"; // Start fading out
+      this.gameEndScreen.style.display = "none";
+      // Clear previous game screen content (e.g., player, enemy)
+      this.gameScreen.innerHTML = "";
 
-      this.gameScreen.style.display = "flex";
-      this.gameScreen.classList.add("active");
+      this.gameScreen.style.height = `${this.height}px`;
+      this.gameScreen.style.width = `${this.width}px`;
 
-      this.gameScreen.appendChild(this.battleArena);
-      this.battleArena.style.display = "flex";
-      this.battleArena.classList.add("active");
-    }, 1000);
+      // Wait for fade-out transition to complete, then hide intro
+      setTimeout(() => {
+        this.startScreen.style.display = "none"; // Fully hide intro screen
 
-    this.gameScreen.appendChild(this.battleArena);
-    this.gameScreen.appendChild(this.enemy.health);
-    this.gameScreen.appendChild(this.player.health);
-    this.battleArena.style.display = "flex";
+        // Show the game screen (but with the transition modal on top)
+        this.gameScreen.style.display = "flex";
+        this.gameScreen.classList.add("active");
 
-    this.gameIntervalId = setInterval(() => {
-      this.gameLoop();
-    }, this.gameLoopFrequency);
+        this.gameScreen.appendChild(this.battleArena);
+        this.battleArena.style.display = "flex";
+        this.battleArena.classList.add("active");
 
-    this.enemyJumpIntervalId = setInterval(() => {
-      this.enemy.jumpToTheOtherSide();
-    }, 3000);
+        this.gameScreen.appendChild(this.enemy.health);
+        this.gameScreen.appendChild(this.player.health);
+        this.battleArena.style.display = "flex";
+
+        // Reset to original position
+        this.player.left = 200;
+        this.player.top = 400;
+        this.player.characterRotation = 0;
+        this.player.updatePosition();
+        this.player.isJumping = false;
+        this.player.updateArrowPosition();
+
+        this.enemy.left = 400;
+        this.enemy.top = 300;
+        this.enemy.updatePosition();
+
+        //  Show the transition modal
+        this.modalScreen.style.display = "flex";
+        this.modalScreen.classList.add("active");
+
+        // After 5 seconds, fade out the transition modal
+        setTimeout(() => {
+          this.modalScreen.style.opacity = "0"; // Smooth fade-out
+
+          // Hide transition screen completely after fade-out
+          setTimeout(() => {
+            this.modalScreen.style.display = "none";
+
+            // Start the game loop
+            this.gameIntervalId = setInterval(() => {
+              this.gameLoop();
+            }, this.gameLoopFrequency);
+
+            this.enemyJumpIntervalId = setInterval(() => {
+              this.enemy.jumpToTheOtherSide();
+            }, 3000);
+          }, 1000); // Wait for fade-out duration
+        }, 5000); // Transition modal stays for 5 seconds
+      }, 1000); // Wait for intro screen fade-out before displaying game screen
+    }, 1000); // Delay before intro starts fading out
   }
 
   gameLoop() {
@@ -134,14 +159,16 @@ class Game {
   endGame() {
     this.gameIsOver = true;
     if (this.gameIsOver) {
-      this.gameScreen.style.display = "none";
-      this.battleArena.style.display = "none";
+      setTimeout(() => {
+        this.gameScreen.style.display = "none";
+        this.battleArena.style.display = "none";
 
-      this.gameEndScreen.style.display = "flex";
-      this.gameEndScreen.classList.add("active");
+        this.gameEndScreen.style.display = "flex";
+        this.gameEndScreen.classList.add("active");
 
-      clearInterval(this.gameIntervalId);
-      clearInterval(this.enemyJumpIntervalId);
+        clearInterval(this.gameIntervalId);
+        clearInterval(this.enemyJumpIntervalId);
+      }, 500);
     }
   }
 
@@ -152,7 +179,7 @@ class Game {
       this.battleArena.style.display = "none";
       this.gameEndScreen.style.display = "none";
       this.gameEndScreen.classList.remove("active");
-      this.gameEndScreen.classList.add
+      this.gameEndScreen.classList.add;
 
       this.gameEndScreenWin.style.display = "flex";
       this.gameEndScreenWin.classList.add("active");
